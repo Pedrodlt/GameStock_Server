@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this template
+-->
+<dataset>
+    <User id="1" username="pedro" password="123" role="admin"/>
+    <User id="2" username="juan" password="abc" role="user"/>
+</dataset>
+
