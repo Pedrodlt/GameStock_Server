@@ -10,13 +10,23 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  *
  * @author pedro
  */
+@SpringBootApplication
 public class ServerGameStockApp {
     
-    //CLASE DE PRUEBA PARA CONEXION CLIENTE
-
+    public static void main(String[] args) {
+        SpringApplication.run(ServerGameStockApp.class, args);
+        
+        // Lanza el formulario de login (pendiente)
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            LoginUser loginForm = new LoginUser(); 
+            loginForm.setVisible(true);           
+        });
+    }
 }

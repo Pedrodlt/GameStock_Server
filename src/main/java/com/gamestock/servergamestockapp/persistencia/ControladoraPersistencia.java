@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.gamestock.servergamestockapp.persistencia;
 
 import com.gamestock.servergamestockapp.logica.User;
@@ -9,12 +6,14 @@ import com.gamestock.servergamestockapp.persistencia.exceptions.NonexistentEntit
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author pedro
  * Clase que gestiona la persistencia de los usuarios en la base de datos.
  */
+@Repository
 public class ControladoraPersistencia {
     
     UserJpaController userJPA = new UserJpaController();

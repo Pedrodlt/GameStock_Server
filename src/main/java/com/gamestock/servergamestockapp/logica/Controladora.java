@@ -1,20 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.gamestock.servergamestockapp.logica;
 
 import com.gamestock.servergamestockapp.persistencia.ControladoraPersistencia;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author pedro
  * Clase que controla la lógica de gestión de usuarios en el sistema.
  */
-
+@Service
 public class Controladora {
     
+    @Autowired
     ControladoraPersistencia controlPersis = new ControladoraPersistencia();
     
     /**

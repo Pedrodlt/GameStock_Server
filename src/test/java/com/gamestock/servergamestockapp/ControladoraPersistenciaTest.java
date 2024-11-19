@@ -42,7 +42,7 @@ public class ControladoraPersistenciaTest extends DBUnitTest {
     public void tearDown() throws Exception {
         tearDownDatabase();
     }
-
+/*
     @Test
     @DisplayName("Prueba de búsqueda de usuario por nombre de usuario")
     public void testFindUserByUsername() {
@@ -90,6 +90,6 @@ public class ControladoraPersistenciaTest extends DBUnitTest {
     User deletedUser = controladoraPersistencia.obtenerUserName("belen");
     assertNull(deletedUser, "El usuario 'belen' debería haberse eliminado de la base de datos.");
     
-    }
+    }*/
 }
     

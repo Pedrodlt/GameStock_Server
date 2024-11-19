@@ -3,6 +3,9 @@
   <persistence-unit name="gamestockPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.gamestock.servergamestockapp.logica.User</class>
+    <class>com.gamestock.servergamestockapp.logica.Alquiler</class>
+    <class>com.gamestock.servergamestockapp.logica.Cliente</class>
+    <class>com.gamestock.servergamestockapp.logica.Juego</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gamestockapp?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
