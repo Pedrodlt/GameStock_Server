@@ -157,6 +157,38 @@ public class JuegoJpaController implements Serializable{
         } finally {
             em.close();
         }
-    }  
+    }
+    
+    public boolean alquilarJuego(Long juegoId) {
+    EntityManager em = getEntityManager();
+    try {
+        em.getTransaction().begin();
+        Juego juego = em.find(Juego.class, juegoId);
+        if (juego != null && juego.alquilar()) {
+            em.merge(juego); // Persiste el cambio en el stock
+            em.getTransaction().commit();
+            return true; // Alquiler exitoso
+        }
+        em.getTransaction().rollback(); // No hay stock disponible
+        return false;
+    } finally {
+        em.close();
+    }
+}
+
+    public void devolverJuego(Long juegoId) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Juego juego = em.find(Juego.class, juegoId);
+            if (juego != null) {
+                juego.devolver(); // Incrementa el stock
+                em.merge(juego); // Persiste el cambio en el stock
+                em.getTransaction().commit();
+            }
+        } finally {
+            em.close();
+        }
+    }
 }
 

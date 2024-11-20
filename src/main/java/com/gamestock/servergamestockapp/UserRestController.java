@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author pedro
  */
+/**
+ * Controlador REST para gestionar usuarios.
+ */
 @RestController
 @RequestMapping("/api/users")
 public class UserRestController {
@@ -29,34 +32,63 @@ public class UserRestController {
     @Autowired
     private Controladora controladoraLogica;
 
+    /**
+     * Crea un nuevo usuario en el sistema.
+     *
+     * @param user Objeto User con la información del usuario a crear.
+     * @return Mensaje indicando que el usuario fue creado exitosamente.
+     */
     @PostMapping
     public ResponseEntity<String> crearUser(@RequestBody User user) {
         controladoraLogica.crearUser(user);
         return ResponseEntity.ok("Usuario creado exitosamente");
     }
 
+    /**
+     * Elimina un usuario del sistema por su ID.
+     *
+     * @param id Identificador único del usuario.
+     * @return Mensaje indicando que el usuario fue eliminado exitosamente.
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminarUser(@PathVariable Long id) {
         controladoraLogica.eliminarUser(id);
         return ResponseEntity.ok("Usuario eliminado exitosamente");
     }
 
+    /**
+     * Obtiene una lista de todos los usuarios del sistema.
+     *
+     * @return Lista de objetos User.
+     */
     @GetMapping
     public ResponseEntity<List<User>> traerUsers() {
         List<User> users = controladoraLogica.traerUser();
         return ResponseEntity.ok(users);
     }
 
+    /**
+     * Actualiza la información de un usuario existente.
+     *
+     * @param id   Identificador único del usuario.
+     * @param user Objeto User con la información actualizada.
+     * @return Mensaje indicando que el usuario fue actualizado exitosamente.
+     */
     @PutMapping("/{id}")
     public ResponseEntity<String> editarUser(@PathVariable Long id, @RequestBody User user) {
         user.setId(id);
-        controladoraLogica.crearUser(user);
+        controladoraLogica.editarUser(user);
         return ResponseEntity.ok("Usuario actualizado exitosamente");
     }
 
+    /**
+     * Obtiene un usuario por su ID.
+     *
+     * @param id Identificador único del usuario.
+     * @return Objeto User correspondiente al ID dado.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<User> obtenerUser(@PathVariable Long id) {
         return ResponseEntity.ok(controladoraLogica.obtenerUser(id));
     }
-    
 }
