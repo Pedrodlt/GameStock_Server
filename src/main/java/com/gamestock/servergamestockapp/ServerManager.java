@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.gamestock.servergamestockapp;
 
 import com.gamestock.servergamestockapp.logica.Controladora;
@@ -15,6 +12,7 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import org.springframework.boot.SpringApplication;
 
 /**
  *
@@ -41,6 +39,7 @@ class ServerManager {
         Thread serverThread = new Thread(() -> server.run());
         serverThread.start();
         
+        SpringApplication.run(ServerGameStockApp.class);
         serverRunning = true; 
 
         JOptionPane.showMessageDialog(null, "Server started successfully", "Server Status", JOptionPane.INFORMATION_MESSAGE);

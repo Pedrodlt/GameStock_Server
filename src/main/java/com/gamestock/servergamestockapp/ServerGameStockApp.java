@@ -21,12 +21,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ServerGameStockApp {
     
     public static void main(String[] args) {
-        SpringApplication.run(ServerGameStockApp.class, args);
-        
-        // Lanza el formulario de login (pendiente)
+        // Inicia la GUI de login cuando la aplicación se ejecute
         javax.swing.SwingUtilities.invokeLater(() -> {
+            // Abre el formulario de Login
             LoginUser loginForm = new LoginUser(); 
-            loginForm.setVisible(true);           
+            loginForm.setVisible(true);  
         });
     }
 }

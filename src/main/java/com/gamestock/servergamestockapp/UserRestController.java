@@ -1,13 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.gamestock.servergamestockapp;
 
 import com.gamestock.servergamestockapp.logica.Controladora;
 import com.gamestock.servergamestockapp.logica.User;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,6 +41,11 @@ public class UserRestController {
     public ResponseEntity<String> crearUser(@RequestBody User user) {
         controladoraLogica.crearUser(user);
         return ResponseEntity.ok("Usuario creado exitosamente");
+    }
+    
+     @GetMapping("/")
+    public ResponseEntity<String> testConnection() {
+        return new ResponseEntity<>("Server is running", HttpStatus.OK);
     }
 
     /**
@@ -90,5 +94,49 @@ public class UserRestController {
     @GetMapping("/{id}")
     public ResponseEntity<User> obtenerUser(@PathVariable Long id) {
         return ResponseEntity.ok(controladoraLogica.obtenerUser(id));
+    }
+    
+    /**
+     * Inicia sesión de un usuario.
+     *
+     * @param loginRequest Objeto con el username y password para autenticarse.
+     * @return Respuesta indicando éxito o error en la autenticación.
+     */
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+        boolean loginExitoso = controladoraLogica.iniciarSesion(loginRequest.getUsername(), loginRequest.getPassword());
+        if (loginExitoso) {
+            return ResponseEntity.ok("Login exitoso");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas");
+        }
+    }
+
+    /**
+     * Cierra sesión de un usuario.
+     *
+     * @param request Mapa con el username del usuario que quiere cerrar sesión.
+     * @return Respuesta indicando éxito en el cierre de sesión.
+     */
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(@RequestBody Map<String, String> request) {
+        String username = request.get("username");
+        if (controladoraLogica.estaLogueado(username)) {
+            controladoraLogica.cerrarSesion(username);
+            return ResponseEntity.ok("Logout exitoso");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El usuario no está logueado");
+        }
+    }
+
+    /**
+     * Verifica si un usuario está logueado.
+     *
+     * @param username Nombre de usuario.
+     * @return Respuesta indicando si el usuario está logueado o no.
+     */
+    @GetMapping("/isLoggedIn/{username}")
+    public ResponseEntity<Boolean> isLoggedIn(@PathVariable String username) {
+        return ResponseEntity.ok(controladoraLogica.estaLogueado(username));
     }
 }

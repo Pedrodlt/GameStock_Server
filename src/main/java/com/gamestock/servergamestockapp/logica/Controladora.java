@@ -2,7 +2,9 @@
 package com.gamestock.servergamestockapp.logica;
 
 import com.gamestock.servergamestockapp.persistencia.ControladoraPersistencia;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,9 @@ public class Controladora {
     
     @Autowired
     ControladoraPersistencia controlPersis = new ControladoraPersistencia();
+    
+    // HashMap para almacenar usuarios logueados
+    private Map<String, User> usuariosLogueados = new HashMap<>();
     
     // MÉTODOS PARA USERS -----------------------------------
     
@@ -105,7 +110,51 @@ public class Controladora {
         return controlPersis.obtenerUserName(username);
     }
     
-    
+    /**
+     * Inicia sesión con username y password.
+     *
+     * @param username Nombre de usuario.
+     * @param password Contraseña.
+     * @return {@code true} si el login fue exitoso, {@code false} en caso contrario.
+     */
+    public boolean iniciarSesion(String username, String password) {
+        User user = controlPersis.obtenerUserName(username); 
+        if (user != null && user.getPassword().equals(password)) { 
+            usuariosLogueados.put(username, user); 
+            return true;
+        }
+        return false; 
+    }
+
+    /**
+     * Cierra sesión del usuario.
+     *
+     * @param username Nombre de usuario.
+     */
+    public void cerrarSesion(String username) {
+        usuariosLogueados.remove(username); 
+    }
+
+    /**
+     * Verifica si un usuario está logueado.
+     *
+     * @param username Nombre de usuario.
+     * @return {@code true} si el usuario está logueado, {@code false} en caso contrario.
+     */
+    public boolean estaLogueado(String username) {
+        return usuariosLogueados.containsKey(username); 
+    }
+
+    /**
+     * Obtiene información del usuario logueado.
+     *
+     * @param username Nombre de usuario.
+     * @return Objeto User correspondiente al username dado.
+     */
+    public User obtenerUsuarioLogueado(String username) {
+        return usuariosLogueados.get(username); 
+    }
+
     // MÉTODOS PARA JUEGOS -----------------------------------
 
     /**
