@@ -88,4 +88,43 @@ public class JuegoRestController {
     public ResponseEntity<Juego> obtenerJuego(@PathVariable Long id) {
         return ResponseEntity.ok(controladoraLogica.obtenerJuego(id));
     }
+    
+    /**
+     * Obtiene un juego por su nombre.
+     *
+     * @param nombre Nombre del juego.
+     * @return Objeto Juego correspondiente al nombre dado.
+     */
+    @GetMapping("/nombre/{nombre}")
+    public ResponseEntity<Juego> obtenerJuegoNombre(@PathVariable String nombre) {
+        return ResponseEntity.ok(controladoraLogica.obtenerJuegoNombre(nombre));
+    }
+
+    /**
+     * Alquila un juego, reduciendo su stock si hay disponibilidad.
+     *
+     * @param id Identificador único del juego.
+     * @return Mensaje indicando si el alquiler fue exitoso o no.
+     */
+    @PostMapping("/{id}/alquilar")
+    public ResponseEntity<String> alquilarJuego(@PathVariable Long id) {
+        boolean exito = controladoraLogica.alquilarJuego(id);
+        if (exito) {
+            return ResponseEntity.ok("Juego alquilado exitosamente.");
+        } else {
+            return ResponseEntity.badRequest().body("No hay stock disponible para este juego.");
+        }
+    }
+
+    /**
+     * Devuelve un juego, incrementando su stock.
+     *
+     * @param id Identificador único del juego.
+     * @return Mensaje indicando que el juego fue devuelto exitosamente.
+     */
+    @PostMapping("/{id}/devolver")
+    public ResponseEntity<String> devolverJuego(@PathVariable Long id) {
+        controladoraLogica.devolverJuego(id);
+        return ResponseEntity.ok("Juego devuelto exitosamente.");
+    }
 }

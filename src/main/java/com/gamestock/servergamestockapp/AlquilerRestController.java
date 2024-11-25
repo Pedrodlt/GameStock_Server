@@ -88,4 +88,51 @@ public class AlquilerRestController {
     public ResponseEntity<Alquiler> obtenerAlquiler(@PathVariable Long id) {
         return ResponseEntity.ok(controladoraLogica.obtenerAlquiler(id));
     }
+    
+    /**
+     * Obtiene una lista de todos los alquileres activos.
+     *
+     * @return Lista de objetos Alquiler que están activos.
+     */
+    @GetMapping("/activos")
+    public ResponseEntity<List<Alquiler>> traerAlquileresActivos() {
+        List<Alquiler> alquileresActivos = controladoraLogica.traerAlquileresActivos();
+        return ResponseEntity.ok(alquileresActivos);
+    }
+
+    /**
+     * Finaliza un alquiler marcándolo como inactivo.
+     *
+     * @param id Identificador único del alquiler a finalizar.
+     * @return Mensaje indicando que el alquiler fue finalizado exitosamente.
+     */
+    @PutMapping("/{id}/finalizar")
+    public ResponseEntity<String> finalizarAlquiler(@PathVariable Long id) {
+        controladoraLogica.finalizarAlquiler(id);
+        return ResponseEntity.ok("Alquiler finalizado exitosamente");
+    }
+
+    /**
+     * Obtiene una lista de alquileres asociados a un cliente específico.
+     *
+     * @param clienteId Identificador único del cliente.
+     * @return Lista de objetos Alquiler asociados al cliente dado.
+     */
+    @GetMapping("/cliente/{clienteId}")
+    public ResponseEntity<List<Alquiler>> traerAlquileresPorCliente(@PathVariable Long clienteId) {
+        List<Alquiler> alquileresCliente = controladoraLogica.traerAlquileresPorCliente(clienteId);
+        return ResponseEntity.ok(alquileresCliente);
+    }
+
+    /**
+     * Obtiene una lista de alquileres asociados a un juego específico.
+     *
+     * @param juegoId Identificador único del juego.
+     * @return Lista de objetos Alquiler asociados al juego dado.
+     */
+    @GetMapping("/juego/{juegoId}")
+    public ResponseEntity<List<Alquiler>> traerAlquileresPorJuego(@PathVariable Long juegoId) {
+        List<Alquiler> alquileresJuego = controladoraLogica.traerAlquileresPorJuego(juegoId);
+        return ResponseEntity.ok(alquileresJuego);
+    }
 }

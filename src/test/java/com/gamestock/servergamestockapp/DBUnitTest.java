@@ -38,7 +38,7 @@ public abstract class DBUnitTest {
         
         IDataSet dataSet = new FlatXmlDataSetBuilder().build(resourceAsStream);
         databaseTester.setDataSet(dataSet);
-        databaseTester.setSetUpOperation(DatabaseOperation.CLEAN_INSERT);
+        databaseTester.setSetUpOperation(DatabaseOperation.REFRESH);
         databaseTester.onSetup();
     }
 
