@@ -1,9 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.gamestock.servergamestockapp.logica;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -30,6 +28,7 @@ public class Juego implements Serializable{
     private Double precio;
     private int stock;
     @OneToMany(mappedBy = "juego", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("juego") // Ignorar el juego dentro de cada alquiler
     private List<Alquiler> listaAlquileres;
     
     /**

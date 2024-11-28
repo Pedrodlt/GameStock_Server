@@ -40,7 +40,7 @@ public class ClienteRestControllerTest {
     // 1. Test para crear un cliente
     @Test
     public void testCrearCliente() throws Exception {
-        Cliente cliente = new Cliente(1L, "Juan", "Pérez", "González", "juan.perez@example.com", "123456789");
+        Cliente cliente = new Cliente(1L, "Juan", "Pérez", "González", "juan.perez@example.com", "123456789", null);
 
         Mockito.doNothing().when(controladoraLogica).crearCliente(any(Cliente.class));
 
@@ -54,7 +54,7 @@ public class ClienteRestControllerTest {
     // 2. Test para eliminar un cliente
     @Test
     public void testEliminarCliente() throws Exception {
-        Long clienteId = 1L;
+        Long clienteId = 2L;
 
         Mockito.doNothing().when(controladoraLogica).eliminarCliente(clienteId);
 
@@ -67,8 +67,8 @@ public class ClienteRestControllerTest {
     @Test
     public void testTraerClientes() throws Exception {
         List<Cliente> clientes = Arrays.asList(
-                new Cliente(1L, "Juan", "Pérez", "González", "juan.perez@example.com", "123456789"),
-                new Cliente(2L, "Ana", "López", "Martínez", "ana.lopez@example.com", "987654321")
+                new Cliente(1L, "Juan", "Pérez", "González", "juan.perez@example.com", "123456789", null),
+                new Cliente(2L, "Ana", "López", "Martínez", "ana.lopez@example.com", "987654321", null)
         );
 
         Mockito.when(controladoraLogica.traerClientes()).thenReturn(clientes);
@@ -84,7 +84,7 @@ public class ClienteRestControllerTest {
     @Test
     public void testEditarCliente() throws Exception {
         Long clienteId = 1L;
-        Cliente clienteActualizado = new Cliente(clienteId, "Juan", "Pérez", "González", "juan.perez@example.com", "123456789");
+        Cliente clienteActualizado = new Cliente(clienteId, "Juan", "Pérez", "González", "juan.perez@example.com", "123456789",null);
 
         Mockito.doNothing().when(controladoraLogica).editarCliente(any(Cliente.class));
 
@@ -99,7 +99,7 @@ public class ClienteRestControllerTest {
     @Test
     public void testObtenerCliente() throws Exception {
         Long clienteId = 1L;
-        Cliente cliente = new Cliente(clienteId, "Juan", "Pérez", "González", "juan.perez@example.com", "123456789");
+        Cliente cliente = new Cliente(clienteId, "Juan", "Pérez", "González", "juan.perez@example.com", "123456789", null);
 
         Mockito.when(controladoraLogica.obtenerCliente(clienteId)).thenReturn(cliente);
 

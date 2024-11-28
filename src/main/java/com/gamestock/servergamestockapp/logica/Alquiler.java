@@ -1,6 +1,8 @@
 
 package com.gamestock.servergamestockapp.logica;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,10 +23,12 @@ public class Alquiler implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "cliente_id", nullable = false)
+    @JsonIgnoreProperties("alquileres") // Ignorar la lista de alquileres del cliente
     private Cliente cliente;
     @ManyToOne
-    @JoinColumn(name = "juego_id")
+    @JoinColumn(name = "juego_id", nullable = false)
+    @JsonIgnoreProperties("listaAlquileres") // Ignorar la lista de alquileres del juego
     private Juego juego;
     private String fechaAlquiler;
     private String fechaDevolucion;
