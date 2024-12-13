@@ -1,6 +1,8 @@
 
 package com.gamestock.servergamestockapp;
 
+import com.gamestock.servergamestockapp.forms.ServerStartForm;
+import com.gamestock.servergamestockapp.forms.ServerStartFormAdmin;
 import com.gamestock.servergamestockapp.logica.Controladora;
 import com.gamestock.servergamestockapp.logica.User;
 import java.io.BufferedReader;
@@ -18,7 +20,7 @@ import org.springframework.boot.SpringApplication;
  *
  * @author pedro
  */
-class ServerManager {
+public class ServerManager {
     
     static MockSocketsServer server;
     private static Map<String, String> activeSessions = new HashMap<>();
@@ -56,7 +58,7 @@ class ServerManager {
      // Obtener el usuario por su nombre de usuario
     User user = controladora.obtenerUserName(username);
     
-        if (user != null && user.getPassword().equals(password)) {
+        if (user != null && user.checkPassword(password)) {
             // Autenticación exitosa
             // Abrir el formulario correspondiente según el rol del usuario
             if ("admin".equals(user.getRole())) {

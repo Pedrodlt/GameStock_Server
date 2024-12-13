@@ -118,12 +118,18 @@ public class Controladora {
      * @return {@code true} si el login fue exitoso, {@code false} en caso contrario.
      */
     public boolean iniciarSesion(String username, String password) {
-        User user = controlPersis.obtenerUserName(username); 
-        if (user != null && user.getPassword().equals(password)) { 
+        User user = controlPersis.obtenerUserName(username);
+        if (user != null && user.checkPassword(password)){
             usuariosLogueados.put(username, user); 
             return true;
         }
-        return false; 
+        return false;
+        /*User user = controlPersis.obtenerUserName(username);
+        if (user == null) {
+            return false; // Usuario no encontrado
+        }
+        // Verificamos la contraseña usando BCrypt
+        return user.checkPassword(password);*/
     }
 
     /**

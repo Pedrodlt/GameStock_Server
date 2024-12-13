@@ -1,6 +1,8 @@
 
 package com.gamestock.servergamestockapp.logica;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -85,6 +87,20 @@ public class User implements Serializable{
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = hashPassword(password);
+    }
+
+    /**
+     * Hashea la contraseña usando BCrypt.
+     */
+    private String hashPassword(String password) {
+        return BCrypt.hashpw(password, BCrypt.gensalt());
+    }
+
+    /**
+     * Verifica si una contraseña sin hash coincide con la almacenada.
+     */
+    public boolean checkPassword(String inputPassword) {
+        return BCrypt.checkpw(inputPassword, this.password);
     }
 }
