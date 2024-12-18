@@ -40,7 +40,7 @@ public class JuegoRestControllerTest {
     // 1. Test para crear un juego
     @Test
     public void testCrearJuego() throws Exception {
-        Juego juego = new Juego(1L, "The Witcher 3", "RPG", "CD Projekt", 59.99, 5, null);
+        Juego juego = new Juego(1L, "The Witcher 3", "RPG", "CD Projekt", 59.99, 5, 2, null);
         
         Mockito.doNothing().when(controladoraLogica).crearJuego(any(Juego.class));
 
@@ -67,8 +67,8 @@ public class JuegoRestControllerTest {
     @Test
     public void testTraerJuegos() throws Exception {
         List<Juego> juegos = Arrays.asList(
-                new Juego(2L, "Super Mario Bros", "Juego clásico de plataformas.", "Nintendo", 69.99, 9, null),
-                new Juego(3L, "The Legend of Zelda", "Juego de aventuras épico.","Nintendo", 59.99, 10, null)
+                new Juego(2L, "Super Mario Bros", "Juego clásico de plataformas.", "Nintendo", 69.99, 9, 5, null),
+                new Juego(3L, "The Legend of Zelda", "Juego de aventuras épico.","Nintendo", 59.99, 10, 4, null)
         );
 
         Mockito.when(controladoraLogica.traerJuegos()).thenReturn(juegos);
@@ -84,7 +84,7 @@ public class JuegoRestControllerTest {
     @Test
     public void testEditarJuego() throws Exception {
         Long juegoId = 2L;
-        Juego juegoActualizado = new Juego(juegoId, "Super Mario Bros", "Juego clásico ACTUALIZADO de plataformas.", "Nintendo", 69.99, 9, null);
+        Juego juegoActualizado = new Juego(juegoId, "Super Mario Bros", "Juego clásico ACTUALIZADO de plataformas.", "Nintendo", 69.99, 9, 5, null);
 
         Mockito.doNothing().when(controladoraLogica).editarJuego(any(Juego.class));
 
@@ -99,7 +99,7 @@ public class JuegoRestControllerTest {
     @Test
     public void testObtenerJuego() throws Exception {
         Long juegoId = 2L;
-        Juego juego = new Juego(juegoId, "Super Mario Bros", "Juego clásico de plataformas.", "Nintendo", 69.99, 9, null);
+        Juego juego = new Juego(juegoId, "Super Mario Bros", "Juego clásico de plataformas.", "Nintendo", 69.99, 9,5, null);
 
         Mockito.when(controladoraLogica.obtenerJuego(juegoId)).thenReturn(juego);
 
@@ -113,7 +113,7 @@ public class JuegoRestControllerTest {
     @Test
     public void testObtenerJuegoNombre() throws Exception {
         String nombreJuego = "Super Mario Bros";
-        Juego juego = new Juego(2L, nombreJuego, "Juego clásico de plataformas.", "Nintendo", 69.99, 9, null);
+        Juego juego = new Juego(2L, nombreJuego, "Juego clásico de plataformas.", "Nintendo", 69.99, 9, 5, null);
 
         Mockito.when(controladoraLogica.obtenerJuegoNombre(nombreJuego)).thenReturn(juego);
 

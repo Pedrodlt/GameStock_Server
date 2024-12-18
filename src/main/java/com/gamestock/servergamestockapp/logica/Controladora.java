@@ -2,6 +2,8 @@
 package com.gamestock.servergamestockapp.logica;
 
 import com.gamestock.servergamestockapp.persistencia.ControladoraPersistencia;
+
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -248,6 +250,19 @@ public class Controladora {
         controlPersis.devolverJuego(juegoId);
     }
 
+    /**
+     * Devuelve un listado de juegos, según su ranking.
+     *
+     */
+    public List<Juego> obtenerRankingJuegos() {
+        // Obtiene todos los juegos
+        List<Juego> juegos = controlPersis.traerJuegos();
+        // Ordena los juegos por la cantidad de alquileres en orden descendente
+        juegos.sort(Comparator.comparingInt(Juego::getCantidadAlquileres).reversed());
+
+        return juegos;
+    }
+
     // MÉTODOS PARA CLIENTES -----------------------------------
 
     /**
@@ -304,7 +319,15 @@ public class Controladora {
      * @param alquiler Objeto Alquiler que contiene la información del alquiler a crear.
      */
     public void crearAlquiler(Alquiler alquiler) {
-        controlPersis.crearAlquiler(alquiler);
+        Long juegoId = alquiler.getJuego().getId();
+        // Intenta realizar el alquiler a través de `controlPersis.alquilarJuego`
+        if (controlPersis.alquilarJuego(juegoId)) {
+            // Si el alquiler fue exitoso, crea el registro del alquiler
+            controlPersis.crearAlquiler(alquiler);
+        } else {
+            // Manejo del caso en que no hay stock disponible
+            throw new IllegalStateException("No hay stock disponible para el juego con ID: " + juegoId);
+        }
     }
 
     /**

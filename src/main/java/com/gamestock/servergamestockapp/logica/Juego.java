@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,6 +28,7 @@ public class Juego implements Serializable{
     private String estudio;
     private Double precio;
     private int stock;
+    private int cantidadAlquileres;
     @OneToMany(mappedBy = "juego", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("juego") // Ignorar el juego dentro de cada alquiler
     private List<Alquiler> listaAlquileres;
@@ -47,13 +49,14 @@ public class Juego implements Serializable{
      * @param precio Precio del juego.
      * @param stock Cantidad de juegos del mismo tipo disponibles.
      */
-    public Juego(Long id, String nombre, String genero, String estudio, Double precio, int stock, List<Alquiler> listaAlquileres) {
+    public Juego(Long id, String nombre, String genero, String estudio, Double precio, int stock, int cantidadAlquileres, List<Alquiler> listaAlquileres) {
         this.id = id;
         this.nombre = nombre;
         this.genero = genero;
         this.estudio = estudio;
         this.precio = precio;
         this.stock = stock;
+        this.cantidadAlquileres = cantidadAlquileres;
         this.listaAlquileres = listaAlquileres;
     }
 
@@ -112,11 +115,20 @@ public class Juego implements Serializable{
     public void setListaAlquileres(List<Alquiler> listaAlquileres) {
         this.listaAlquileres = listaAlquileres;
     }
-    
+
+    public int getCantidadAlquileres() {
+        return cantidadAlquileres;
+    }
+
+    public void setCantidadAlquileres(int cantidadAlquileres) {
+        this.cantidadAlquileres = cantidadAlquileres;
+    }
+
     // Métodos para controlar el stock
     public boolean alquilar() {
         if (stock > 0) {
             stock--; // Reduce el stock
+            incrementarAlquileres();
             return true;
         }
         return false; // No hay stock disponible
@@ -124,5 +136,10 @@ public class Juego implements Serializable{
 
     public void devolver() {
         stock++; // Incrementa el stock
+    }
+
+    // Método para incrementar el contador
+    public void incrementarAlquileres() {
+        this.cantidadAlquileres++;
     }
 }

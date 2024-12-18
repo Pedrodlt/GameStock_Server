@@ -42,7 +42,7 @@ public class UserRestControllerTest {
 
         Mockito.doNothing().when(controladoraLogica).crearUser(any(User.class));
 
-        mockMvc.perform(post("/api/users")
+        mockMvc.perform(post("https://localhost:9090/api/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(user)))
                 .andExpect(status().isOk())
@@ -56,7 +56,7 @@ public class UserRestControllerTest {
 
         Mockito.doNothing().when(controladoraLogica).eliminarUser(userId);
 
-        mockMvc.perform(delete("/api/users/{id}", userId))
+        mockMvc.perform(delete("https://localhost:9090/api/users/{id}", userId))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Usuario eliminado exitosamente"));
     }
@@ -71,7 +71,7 @@ public class UserRestControllerTest {
 
         Mockito.when(controladoraLogica.traerUser()).thenReturn(users);
 
-        mockMvc.perform(get("/api/users"))
+        mockMvc.perform(get("https://localhost:9090/api/users"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()").value(users.size()))
                 .andExpect(jsonPath("$[0].username").value("juan123"))
@@ -86,7 +86,7 @@ public class UserRestControllerTest {
 
         Mockito.doNothing().when(controladoraLogica).editarUser(any(User.class));
 
-        mockMvc.perform(put("/api/users/{id}", userId)
+        mockMvc.perform(put("https://localhost:9090/api/users/{id}", userId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userActualizado)))
                 .andExpect(status().isOk())
@@ -101,7 +101,7 @@ public class UserRestControllerTest {
 
         Mockito.when(controladoraLogica.obtenerUser(userId)).thenReturn(user);
 
-        mockMvc.perform(get("/api/users/{id}", userId))
+        mockMvc.perform(get("https://localhost:9090/api/users/{id}", userId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username").value("juan123"))
                 .andExpect(jsonPath("$.email").value("juan.perez@example.com"));
@@ -114,7 +114,7 @@ public class UserRestControllerTest {
 
         Mockito.when(controladoraLogica.iniciarSesion("juan123", "password")).thenReturn(true);
 
-        mockMvc.perform(post("/api/users/login")
+        mockMvc.perform(post("https://localhost:9090/api/users/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(loginRequest)))
                 .andExpect(status().isOk())
@@ -128,7 +128,7 @@ public class UserRestControllerTest {
 
         Mockito.when(controladoraLogica.iniciarSesion("juan123", "wrongpassword")).thenReturn(false);
 
-        mockMvc.perform(post("/api/users/login")
+        mockMvc.perform(post("https://localhost:9090/api/users/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(loginRequest)))
                 .andExpect(status().isUnauthorized())
@@ -142,7 +142,7 @@ public class UserRestControllerTest {
 
         Mockito.when(controladoraLogica.estaLogueado("juan123")).thenReturn(true);
 
-        mockMvc.perform(post("/api/users/logout")
+        mockMvc.perform(post("https://localhost:9090/api/users/logout")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
@@ -156,7 +156,7 @@ public class UserRestControllerTest {
 
         Mockito.when(controladoraLogica.estaLogueado("juan123")).thenReturn(false);
 
-        mockMvc.perform(post("/api/users/logout")
+        mockMvc.perform(post("https://localhost:9090/api/users/logout")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest())

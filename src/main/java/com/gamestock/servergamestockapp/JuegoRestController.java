@@ -127,4 +127,15 @@ public class JuegoRestController {
         controladoraLogica.devolverJuego(id);
         return ResponseEntity.ok("Juego devuelto exitosamente.");
     }
+
+    /**
+     * Obtiene una lista de todos los juegos ordenados según el ranking.
+     *
+     * @return Lista de objetos Juego segun el ranking.
+     */
+    @GetMapping("/ranking")
+    public ResponseEntity<List<Juego>> obtenerRankingJuegos() {
+        List<Juego> ranking = controladoraLogica.obtenerRankingJuegos();
+        return ResponseEntity.ok(ranking);
+    }
 }

@@ -44,7 +44,7 @@ public class AlquilerRestControllerTest {
     // 1. Test para crear un alquiler
     @Test
     public void testCrearAlquiler() throws Exception {
-        Alquiler alquiler = new Alquiler(1L, new Cliente(1L, "Juan", "Perez", "Gallardo", "juan@juan.com", "6666666",null), new Juego(1L, "The Witcher 3", "RPG", "CD Projekt", 59.99, 5, null), "2024-11-24", "2024-12-01", 20.0, true);
+        Alquiler alquiler = new Alquiler(1L, new Cliente(1L, "Juan", "Perez", "Gallardo", "juan@juan.com", "6666666",null), new Juego(1L, "The Witcher 3", "RPG", "CD Projekt", 59.99, 5, 3,null), "2024-11-24", "2024-12-01", 20.0, true);
         
         Mockito.doNothing().when(controladoraLogica).crearAlquiler(any(Alquiler.class));
 
@@ -71,8 +71,8 @@ public class AlquilerRestControllerTest {
     @Test
     public void testTraerAlquileres() throws Exception {
         List<Alquiler> alquileres = Arrays.asList(
-                new Alquiler(2L, new Cliente(1L, "Juan", "Perez", "Gallardo", "juan@juan.com", "6666666", null), new Juego(1L, "The Witcher 3", "RPG", "CD Projekt", 59.99, 5, null), "2024-11-24", "2024-12-01", 20.0, true),
-                new Alquiler(3L, new Cliente(13L, "Ana", "Lopez", "Gallardo", "juan@juan.com", "6666666", null), new Juego(3L, "The Legend of Zelda", "Aventura", "Nintendo", 59.99, 10, null), "2024-11-22", "2024-11-29", 18.0, true)
+                new Alquiler(2L, new Cliente(1L, "Juan", "Perez", "Gallardo", "juan@juan.com", "6666666", null), new Juego(1L, "The Witcher 3", "RPG", "CD Projekt", 59.99, 5, 3, null), "2024-11-24", "2024-12-01", 20.0, true),
+                new Alquiler(3L, new Cliente(13L, "Ana", "Lopez", "Gallardo", "juan@juan.com", "6666666", null), new Juego(3L, "The Legend of Zelda", "Aventura", "Nintendo", 59.99, 10, 1,null), "2024-11-22", "2024-11-29", 18.0, true)
         );
 
         Mockito.when(controladoraLogica.traerAlquileres()).thenReturn(alquileres);
@@ -88,7 +88,7 @@ public class AlquilerRestControllerTest {
     @Test
     public void testEditarAlquiler() throws Exception {
         Long alquilerId = 2L;
-        Alquiler alquilerActualizado = new Alquiler(2L, new Cliente(1L, "Juan", "Perez", "Gallardo", "juan@juan.com", "6666666", null), new Juego(1L, "The Witcher 3", "RPG", "CD Projekt", 59.99, 5, null), "2024-11-24", "2024-12-01", 20.0, true);
+        Alquiler alquilerActualizado = new Alquiler(2L, new Cliente(1L, "Juan", "Perez", "Gallardo", "juan@juan.com", "6666666", null), new Juego(1L, "The Witcher 3", "RPG", "CD Projekt", 59.99, 5, 5, null), "2024-11-24", "2024-12-01", 20.0, true);
 
         Mockito.doNothing().when(controladoraLogica).editarAlquiler(any(Alquiler.class));
 
@@ -103,7 +103,7 @@ public class AlquilerRestControllerTest {
     @Test
     public void testObtenerAlquiler() throws Exception {
         Long alquilerId = 2L;
-        Alquiler alquiler = new Alquiler(alquilerId, new Cliente(1L, "Juan", "Perez", "Gallardo", "juan@juan.com", "6666666", null), new Juego(1L, "The Witcher 3", "RPG", "CD Projekt", 59.99, 5, null), "2024-11-24", "2024-12-01", 20.0, true);
+        Alquiler alquiler = new Alquiler(alquilerId, new Cliente(1L, "Juan", "Perez", "Gallardo", "juan@juan.com", "6666666", null), new Juego(1L, "The Witcher 3", "RPG", "CD Projekt", 59.99, 5, 5, null), "2024-11-24", "2024-12-01", 20.0, true);
 
         Mockito.when(controladoraLogica.obtenerAlquiler(alquilerId)).thenReturn(alquiler);
 
@@ -117,8 +117,8 @@ public class AlquilerRestControllerTest {
     @Test
     public void testTraerAlquileresActivos() throws Exception {
         List<Alquiler> alquileresActivos = Arrays.asList(
-                new Alquiler(2L, new Cliente(1L, "Juan", "Perez", "Gallardo", "juan@juan.com", "6666666", null), new Juego(1L, "The Witcher 3", "RPG", "CD Projekt", 59.99, 5, null), "2024-11-24", "2024-12-01", 20.0, true),
-                new Alquiler(3L, new Cliente(13L, "Ana", "Lopez", "Gallardo", "juan@juan.com", "6666666", null), new Juego(3L, "The Legend of Zelda", "Aventura", "Nintendo", 59.99, 10, null), "2024-11-22", "2024-11-29", 18.0, true));
+                new Alquiler(2L, new Cliente(1L, "Juan", "Perez", "Gallardo", "juan@juan.com", "6666666", null), new Juego(1L, "The Witcher 3", "RPG", "CD Projekt", 59.99, 5, 5, null), "2024-11-24", "2024-12-01", 20.0, true),
+                new Alquiler(3L, new Cliente(13L, "Ana", "Lopez", "Gallardo", "juan@juan.com", "6666666", null), new Juego(3L, "The Legend of Zelda", "Aventura", "Nintendo", 59.99, 10, 1, null), "2024-11-22", "2024-11-29", 18.0, true));
 
         Mockito.when(controladoraLogica.traerAlquileresActivos()).thenReturn(alquileresActivos);
 
@@ -146,7 +146,7 @@ public class AlquilerRestControllerTest {
     public void testTraerAlquileresPorCliente() throws Exception {
         Long clienteId = 1L;
         List<Alquiler> alquileres = Arrays.asList(
-                new Alquiler(2L, new Cliente(1L, "Juan", "Perez", "Gallardo", "juan@juan.com", "6666666", null), new Juego(1L, "The Witcher 3", "RPG", "CD Projekt", 59.99, 5, null), "2024-11-24", "2024-12-01", 20.0, true)
+                new Alquiler(2L, new Cliente(1L, "Juan", "Perez", "Gallardo", "juan@juan.com", "6666666", null), new Juego(1L, "The Witcher 3", "RPG", "CD Projekt", 59.99, 5,1, null), "2024-11-24", "2024-12-01", 20.0, true)
         );
 
         Mockito.when(controladoraLogica.traerAlquileresPorCliente(clienteId)).thenReturn(alquileres);
@@ -162,7 +162,7 @@ public class AlquilerRestControllerTest {
     public void testTraerAlquileresPorJuego() throws Exception {
         Long juegoId = 1L;
         List<Alquiler> alquileres = Arrays.asList(
-                new Alquiler(2L, new Cliente(1L, "Juan", "Perez", "Gallardo", "juan@juan.com", "6666666", null), new Juego(1L, "The Witcher 3", "RPG", "CD Projekt", 59.99, 5, null), "2024-11-24", "2024-12-01", 20.0, true)
+                new Alquiler(2L, new Cliente(1L, "Juan", "Perez", "Gallardo", "juan@juan.com", "6666666", null), new Juego(1L, "The Witcher 3", "RPG", "CD Projekt", 59.99, 5, 1, null), "2024-11-24", "2024-12-01", 20.0, true)
         );
 
         Mockito.when(controladoraLogica.traerAlquileresPorJuego(juegoId)).thenReturn(alquileres);
